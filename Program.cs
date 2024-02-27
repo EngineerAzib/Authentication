@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<Programe>();
 builder.Services.AddTransient<Subject>();
+builder.Services.AddTransient<Designation>();
 builder.Services.AddSwaggerGen(Options =>
 {
     Options.AddSecurityDefinition("ouath2", new OpenApiSecurityScheme
