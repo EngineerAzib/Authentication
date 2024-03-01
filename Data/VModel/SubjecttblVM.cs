@@ -3,7 +3,7 @@
     public class SubjecttblVM
     {
         public string Name { get; set; } = null!;
-        public DateOnly RegDate { get; set; }
+        public DateTime RegDate { get; set; }
         public string Description { get; set; }
     }
 }

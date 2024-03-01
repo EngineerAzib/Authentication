@@ -13,6 +13,7 @@ namespace Authentication.Data
 
         public DbSet<Programetbl> ProgrameTables { get; set; }
         public DbSet<Subjecttble> SubjectTables { get; set; }
+        public DbSet<DesignationTable> DesignationTable{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,10 @@ namespace Authentication.Data
                 .IsRequired();
             modelBuilder.Entity<Subjecttble>()
                .HasKey(p => p.SubjectID);
+
+            modelBuilder.Entity<DesignationTable>()
+               .HasKey(p => p.DesignationID);
+            
         }
     }
 }

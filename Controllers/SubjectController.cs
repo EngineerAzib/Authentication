@@ -22,5 +22,27 @@ namespace Authentication.Controllers
             await _subject.PostSubject(subject);
             return Ok();
         }
+        [HttpGet("GetSubject")]
+        public async Task<IActionResult> GetSubject()
+        {
+            var res = _subject.GetSubject();
+            return Ok(res);
+        }
+        [HttpPut("UpdateSubject")]
+        public async Task<IActionResult>UpdateSubject(SubjecttblVM subject,int Id)
+        {
+            if (Id == 0)
+            {
+                return BadRequest();
+            }
+           await _subject.UpdateSubject(subject, Id);
+            return Ok();
+        }
+        [HttpDelete("DeleteSubject")]
+        public async Task<IActionResult>DeleteSubect(int Id)
+        {
+           await _subject.DeleteSubject(Id);
+            return Ok();
+        }
     }
 }
