@@ -22,23 +22,31 @@ namespace Authentication.Service
 
         public async Task AddPrograme(ProgrameVM programe)
         {
-            // Get the current user's ID
-            var user = _httpContextAccessor.HttpContext.User;
-            var user_Id = _userManager.GetUserId(user);
-
-            // Create a new ProgrameTable instance
-            var program = new Programetbl()
+            try
             {
-                UserId = user_Id,
-                Name = programe.Name,
-                StartDate = programe.StartDate,
-                IsActive = programe.IsActive,
-            };
+               
 
-            // Add the ProgrameTable instance to the context and save changes
-            _context.ProgrameTables.Add(program);
-            await _context.SaveChangesAsync();
+                // Create a new ProgrameTable instance
+                var program = new Programetbl()
+                {
+                  
+                    Name = programe.Name,
+                    StartDate = programe.StartDate,
+                    IsActive = programe.IsActive,
+                };
+
+                // Add the ProgrameTable instance to the context and save changes
+                _context.ProgrameTables.Add(program);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as appropriate
+                Console.WriteLine($"Error adding programe: {ex.Message}");
+                throw; // Rethrow the exception to propagate it further
+            }
         }
+
         public List<programeView> GetPrograme()
         {
             var programeList = _context.ProgrameTables.Select(p => new programeView

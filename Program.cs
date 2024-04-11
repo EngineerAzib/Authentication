@@ -17,6 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<Programe>();
 builder.Services.AddTransient<Subject>();
 builder.Services.AddTransient<Designation>();
+builder.Services.AddTransient<Session>();
+builder.Services.AddTransient<Room>();
+builder.Services.AddTransient<Staff>();
+builder.Services.AddTransient<Student>();
+builder.Services.AddTransient<StudentAttendence>();
 builder.Services.AddSwaggerGen(Options =>
 {
     Options.AddSecurityDefinition("ouath2", new OpenApiSecurityScheme

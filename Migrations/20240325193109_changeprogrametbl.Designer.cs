@@ -4,6 +4,7 @@ using Authentication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240325193109_changeprogrametbl")]
+    partial class changeprogrametbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,31 +163,6 @@ namespace Authentication.Migrations
                     b.HasIndex("Designation_ID");
 
                     b.ToTable("staffTables");
-                });
-
-            modelBuilder.Entity("Authentication.Data.Models.StudenAttendanceTable", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Student_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("dateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Student_Id");
-
-                    b.ToTable("studenAttendanceTable");
                 });
 
             modelBuilder.Entity("Authentication.Data.Models.StudentTable", b =>
@@ -485,17 +463,6 @@ namespace Authentication.Migrations
                         .IsRequired();
 
                     b.Navigation("DesignationTable");
-                });
-
-            modelBuilder.Entity("Authentication.Data.Models.StudenAttendanceTable", b =>
-                {
-                    b.HasOne("Authentication.Data.Models.StudentTable", "StudentTable")
-                        .WithMany()
-                        .HasForeignKey("Student_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentTable");
                 });
 
             modelBuilder.Entity("Authentication.Data.Models.StudentTable", b =>

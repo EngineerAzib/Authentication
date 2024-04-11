@@ -4,6 +4,7 @@ using Authentication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240323200741_studentAzibtable")]
+    partial class studentAzibtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +63,13 @@ namespace Authentication.Migrations
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("ProgrameId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ProgrameTables");
                 });
@@ -160,31 +169,6 @@ namespace Authentication.Migrations
                     b.HasIndex("Designation_ID");
 
                     b.ToTable("staffTables");
-                });
-
-            modelBuilder.Entity("Authentication.Data.Models.StudenAttendanceTable", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Student_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("dateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Student_Id");
-
-                    b.ToTable("studenAttendanceTable");
                 });
 
             modelBuilder.Entity("Authentication.Data.Models.StudentTable", b =>
@@ -476,6 +460,17 @@ namespace Authentication.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Authentication.Data.Models.Programetbl", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Authentication.Data.Models.StaffTable", b =>
                 {
                     b.HasOne("Authentication.Data.Models.DesignationTable", "DesignationTable")
@@ -485,17 +480,6 @@ namespace Authentication.Migrations
                         .IsRequired();
 
                     b.Navigation("DesignationTable");
-                });
-
-            modelBuilder.Entity("Authentication.Data.Models.StudenAttendanceTable", b =>
-                {
-                    b.HasOne("Authentication.Data.Models.StudentTable", "StudentTable")
-                        .WithMany()
-                        .HasForeignKey("Student_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StudentTable");
                 });
 
             modelBuilder.Entity("Authentication.Data.Models.StudentTable", b =>

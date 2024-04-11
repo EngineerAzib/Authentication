@@ -6,7 +6,7 @@ namespace Authentication.Data.Models
     {
         public int ProgrameId { get; set; }
 
-        public string UserId { get; set; } = null!;
+        
 
         public string Name { get; set; } = null!;
 
@@ -14,6 +14,6 @@ namespace Authentication.Data.Models
 
         public bool IsActive { get; set; }
 
-        public virtual IdentityUser User { get; set; } = null!;
+       
     }
 }
